@@ -10,62 +10,62 @@ import "./CommentForm.css";
  */
 
 const CommentForm = ({ postId, addComment }) => {
-  const { currentUser } = useContext(UserContext);
-  const username = currentUser.username;
-  let date = new Date();
-  let initialState = {
-    username: username,
-    body: "",
-    date: `${date}`,
-    post_id: parseInt(postId),
-  };
-  const [comment, setComment] = useState(initialState);
+	const { currentUser } = useContext(UserContext);
+	const username = currentUser.username;
+	let date = new Date();
+	let initialState = {
+		username: username,
+		body: "",
+		date: `${date}`,
+		post_id: parseInt(postId),
+	};
+	const [comment, setComment] = useState(initialState);
 
-  /** Allows form to be used */
+	/** Allows form to be used */
 
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
-    setComment((formData) => ({
-      ...formData,
-      [name]: value,
-    }));
-  };
+	const handleChange = (evt) => {
+		const { name, value } = evt.target;
+		setComment((formData) => ({
+			...formData,
+			[name]: value,
+		}));
+	};
 
-  const handleSubmit = (evt) => {
-    addComment(comment);
+	const handleSubmit = (evt) => {
+		addComment(comment);
+		setComment(initialState);
+		window.location.reload(true);
+	};
 
-    setComment(initialState);
-  };
-
-  return (
-    <div className="CommentForm">
-      <Box component="form" autoComplete="off" onSubmit={handleSubmit}>
-        <TextField
-          placeholder="Enter comment"
-          id="outlined-basic"
-          label="New Comment"
-          variant="outlined"
-          name="body"
-          className="form-control"
-          value={comment.body}
-          onChange={handleChange}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  className="fas fa-plus-circle"
-                  edge="end"
-                  color="primary"
-                  title="Add Comment"
-                  type="submit"
-                />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Box>
-    </div>
-  );
+	return (
+		<div className="CommentForm">
+			<Box component="form" autoComplete="off" onSubmit={handleSubmit}>
+				<TextField
+					placeholder="Enter comment"
+					id="outlined-basic"
+					label="New Comment"
+					variant="outlined"
+					name="body"
+					className="form-control"
+					value={comment.body}
+					onChange={handleChange}
+					InputProps={{
+						endAdornment: (
+							<InputAdornment position="end">
+								<IconButton
+									className="fas fa-plus-circle"
+									edge="end"
+									color="primary"
+									title="Add Comment"
+									type="submit"
+								/>
+							</InputAdornment>
+						),
+					}}
+				/>
+			</Box>
+		</div>
+	);
 };
 
 export default CommentForm;
