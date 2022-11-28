@@ -3,6 +3,7 @@ import UserContext from "../auth/UserContext";
 import { Box, TextField, IconButton, InputAdornment } from "@mui/material";
 
 import "./CommentForm.css";
+import { useHistory } from "react-router-dom";
 
 /** Renders Comment Form
  *
@@ -31,10 +32,11 @@ const CommentForm = ({ postId, addComment }) => {
 		}));
 	};
 
+	const history = useHistory();
+
 	const handleSubmit = (evt) => {
 		addComment(comment);
-		setComment(initialState);
-		window.location.reload(true);
+		history.push(`/forum/${[postId]}`);
 	};
 
 	return (
